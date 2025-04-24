@@ -66,9 +66,9 @@ def run_chain(chain_file):
                 context[var] = user_input
 
         if step.get("use_vector_search", False):
-            query = context.get("beschreibung", "")
+            query = context.get("description", "")
             result = db.similarity_search(query, k=2)
-            context["recherche"] = "\n".join([d.page_content for d in result])
+            context["research"] = "\n".join([d.page_content for d in result])
 
         filled_prompt = prompt.format(**context)
         result = llm.predict(filled_prompt)
