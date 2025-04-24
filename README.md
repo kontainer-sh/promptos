@@ -1,3 +1,4 @@
+
 # 🧠 Consulting Assistant CLI
 
 A modular and extensible AI-powered assistant designed for consultants, coaches, and creators. Build your own vector-based knowledge assistant, execute prompt workflows via YAML-defined chains, and automate responses using GPT-4 and LangChain.
@@ -17,8 +18,8 @@ A modular and extensible AI-powered assistant designed for consultants, coaches,
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/consulting-assistant.git
-cd consulting-assistant
+git clone git@github.com:kontainer-sh/promptos.git
+cd promptos
 ```
 
 ### 2. Create Virtual Environment & Install Dependencies

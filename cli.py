@@ -15,7 +15,7 @@ from langchain_community.docstore.document import Document
 load_dotenv()
 llm = ChatOpenAI(temperature=0, model_name="gpt-4")
 
-# 📂 Prompt Template laden
+# 📂 Load Prompt Template
 def load_prompt_template(file_path):
     with open(file_path, "r") as f:
         data = yaml.safe_load(f)
@@ -24,11 +24,11 @@ def load_prompt_template(file_path):
         template=data["template"]
     )
 
-# 🔍 Vektor-Datenbank laden
+# 🔍 Load vector database
 def load_db():
     return FAISS.load_local("faiss_index", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
 
-# 🏗 Index aufbauen aus Markdown-Dateien
+# 🏗 Build index from Markdown files
 def build_index():
     documents = []
     for filepath in glob.glob("./docs/*.md"):
@@ -38,14 +38,14 @@ def build_index():
 
     db = FAISS.from_documents(documents, OpenAIEmbeddings())
     db.save_local("faiss_index")
-    print("✅ Index erfolgreich gebaut und gespeichert.")
+    print("✅ Index successfully built and saved.")
 
-# 💬 Einzelne Frage beantworten mit Vektor-Unterstützung
+# 💬 Answer a single question with vector support
 def run_prompt(query):
     db = load_db()
     qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=db.as_retriever())
     response = qa_chain.run(query)
-    print("\nAntwort:\n")
+    print("\nAnswer:\n")
     print(response)
 
 # 🔗 Chain Runner
@@ -62,7 +62,7 @@ def run_chain(chain_file):
 
         if step.get("ask_user", False):
             for var in prompt.input_variables:
-                user_input = input(f"Eingabe für '{var}': ")
+                user_input = input(f"Input for '{var}': ")
                 context[var] = user_input
 
         if step.get("use_vector_search", False):
@@ -74,12 +74,12 @@ def run_chain(chain_file):
         result = llm.predict(filled_prompt)
         context[step["id"]] = result
 
-        print(f"\n🔹 Schritt '{step['id']}':\n{result}\n")
+        print(f"\n🔹 Step '{step['id']}':\n{result}\n")
 
 # 🖥️ CLI Setup
 parser = argparse.ArgumentParser(description="🧠 Consulting Assistant CLI")
-parser.add_argument("command", choices=["build-index", "ask", "run-chain"], help="Aktion auswählen")
-parser.add_argument("arg", nargs="?", help="Frage oder Pfad zur Chain-Datei")
+parser.add_argument("command", choices=["build-index", "ask", "run-chain"], help="Choose an action")
+parser.add_argument("arg", nargs="?", help="Question or path to chain file")
 
 args = parser.parse_args()
 
@@ -89,11 +89,11 @@ if args.command == "build-index":
 
 elif args.command == "ask":
     if not args.arg:
-        args.arg = input("Frage: ")
+        args.arg = input("Question: ")
     run_prompt(args.arg)
 
 elif args.command == "run-chain":
     if not args.arg:
-        args.arg = input("Pfad zur Chain (z. B. chains/xxx.yaml): ")
+        args.arg = input("Path to chain (e.g., chains/xxx.yaml): ")
     run_chain(args.arg)
 
