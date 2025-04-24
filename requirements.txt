@@ -1,7 +1,8 @@
-openai
+argparse
+python-dotenv
+PyYAML
 langchain
 langchain-community
 langchain-openai
 faiss-cpu
-tqdm
-python-dotenv
+
