@@ -45,19 +45,19 @@ OPENAI_API_KEY=your-api-key-here
 ### Build the Vector Index
 
 ```bash
-python cli.py build-index
+python cli.py --build_index
 ```
 
 ### Ask a Question
 
 ```bash
-python cli.py ask "What is the difference between strategy A and B?"
+python cli.py --ask
 ```
 
 ### Run a Multi-Step Prompt Chain
 
 ```bash
-python cli.py run-chain chains/example.yaml
+python cli.py --run_chain chains/example.yaml
 ```
 
 ---
@@ -65,11 +65,12 @@ python cli.py run-chain chains/example.yaml
 ## 📁 Project Structure
 
 ```
-consulting-assistant/
+promptos/
 ├── cli.py                # Main CLI entry point
 ├── docs/                 # Markdown files to be indexed
 ├── chains/               # YAML workflow chains
 ├── prompts/              # YAML prompt templates
+├── tools/                # Python tools
 ├── .env                  # API key (not included in repo)
 ├── requirements.txt      # Python dependencies
 └── faiss_index/          # Saved vector database (generated)
