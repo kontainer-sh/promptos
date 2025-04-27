@@ -81,16 +81,16 @@ consulting-assistant/
 
 ```yaml
 input_variables:
-  - beschreibung
-  - recherche
+  - description
+  - research
 template: |
   Based on the following user description and research, suggest 3 product ideas:
 
   Description:
-  {beschreibung}
+  {description}
 
   Research:
-  {recherche}
+  {research}
 ```
 
 ---
